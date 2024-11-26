@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 15:25:47 by lobenard          #+#    #+#             */
-/*   Updated: 2024/11/20 16:23:28 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/11/26 16:57:10 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (start + i < ft_strlen(s) && i < len)
 	{
 		dst[i] = s[start + i];
+		i++;
 	}
 	dst[i] = '\0';
 	return (dst);

@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:25:17 by lobenard          #+#    #+#             */
-/*   Updated: 2024/11/20 17:51:31 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/11/26 18:17:38 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,54 +45,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	trimmed = (char *)malloc(len + 1);
 	if (trimmed == NULL)
 		return (NULL);
-	ft_strlcpy(trimmed, s1 + start, len);
-	trimmed[len] = '\0';
+	ft_strlcpy(trimmed, s1 + start, len + 1);
 	return (trimmed);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	i;
-
-	if (!dst || !src)
-		return (0);
-	while (src[i] && i + 1 < size)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
-}
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-#include <stdio.h>
-#include <stdlib.h>
-
-int main() {
-    const char *original = "   Hello, world!   ";
-    const char *set = " ";
-
-    char *trimmed = ft_strtrim(original, set);
-
-    if (trimmed == NULL) {
-        printf("Memory allocation failed\n");
-        return 1;
-    }
-
-    printf("Original: '%s'\n", original);
-    printf("Trimmed: '%s'\n", trimmed);
-
-    // Libérer la mémoire allouée
-    free(trimmed);
-
-    return 0;
 }
