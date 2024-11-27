@@ -28,8 +28,10 @@ SRC	= ft_memcpy.c \
 		ft_memcmp.c \
 		ft_strlcpy.c \
 		ft_strlcat.c \
-
-
+		ft_putstr_fd.c \
+		ft_putchar_fd.c\
+		ft_putendl_fd.c\
+		
 NAME	= libft.a
 
 OBJS	= $(SRC:.c=.o)
