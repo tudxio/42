@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/02 14:30:02 by lobenard          #+#    #+#              #
+#    Updated: 2024/12/02 14:30:02 by lobenard         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRC	= ft_memcpy.c \
 		ft_calloc.c \
 		ft_strnstr.c \
@@ -31,7 +43,10 @@ SRC	= ft_memcpy.c \
 		ft_putstr_fd.c \
 		ft_putchar_fd.c\
 		ft_putendl_fd.c\
-		
+		ft_putnbr_fd.c\
+		ft_striteri.c\
+
+
 NAME	= libft.a
 
 OBJS	= $(SRC:.c=.o)

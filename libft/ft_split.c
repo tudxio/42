@@ -81,3 +81,27 @@ char	**ft_split(char const *s, char c)
 	set_mem(tab, s, c);
 	return (tab);
 }
+/* #include <stdio.h>
+#include <stdlib.h>
+
+int	main() {
+    const char *original = "  Hello, world!  This is a test.  ";
+    const char charset = ' ';
+
+    char **split = ft_split(original, charset);
+
+    if (split == NULL) 
+	{
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    for (size_t i = 0; split[i] != NULL; i++)
+	{
+        printf("Word %zu: '%s'\n", i, split[i]);
+        free(split[i]);
+    }
+    free(split);
+
+    return 0;
+} */
