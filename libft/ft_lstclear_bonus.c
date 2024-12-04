@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 14:20:08 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/02 14:35:36 by lobenard         ###   ########.fr       */
+/*   Created: 2024/12/04 23:26:21 by lobenard          #+#    #+#             */
+/*   Updated: 2024/12/04 23:38:58 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	if (n == -2147483648)
+	t_list	*tmp;
+
+	if (!lst || !del)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		return (0);
 	}
-	if (n < 0)
-	{
-		write(fd, "-", 1);
-		n = n * -1;
-	}
-	if (n > 9)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
-	else
-	{
-		n += '0';
-		write(fd, &n, 1);
-	}
+	tmp = lst;
 }
