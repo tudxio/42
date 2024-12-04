@@ -46,6 +46,10 @@ SRC	= ft_memcpy.c \
 		ft_putnbr_fd.c\
 		ft_striteri.c\
 
+BSRC = 	ft_lstnew_bonus.c\
+		ft_lstsize_bonus.c\
+		ft_lstadd_front_bonus.c\
+		ft_lstlast_bonus.c\
 
 NAME	= libft.a
 
