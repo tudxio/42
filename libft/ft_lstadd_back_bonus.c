@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 19:13:36 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/05 00:08:10 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:11:05 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 			tmp->next = new;
 		}
 		else
-			lst = new;
+			*lst = new;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 23:26:21 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/04 23:38:58 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:04:58 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
 	t_list	*tmp;
 
-	if (!lst || !del)
+	if (!*lst || !del)
+		return ;
+	while (*lst)
 	{
-		return (0);
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
 	}
-	tmp = lst;
 }
