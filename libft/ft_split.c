@@ -12,96 +12,89 @@
 
 #include "libft.h"
 
-static size_t	count_words(char const *s, char c)
+static char	**ft_free_w(char **ptr)
 {
-	size_t	words;
 	size_t	i;
 
-	words = 0;
 	i = 0;
-	while (s[i])
+	while (ptr[i])
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-			words++;
+		free(ptr[i]);
 		i++;
 	}
-	return (words);
+	free(ptr);
+	return (NULL);
 }
 
-static void	fill_tab(char *new, char const *s, char c)
+static size_t	ft_w(char const *str, char c)
 {
 	size_t	i;
+	size_t	j;
 
+	if (!str[0])
+		return (0);
 	i = 0;
-	while (s[i] && s[i] != c)
-	{
-		new[i] = s[i];
+	j = 0;
+	while (str[i] && str[i] == c)
 		i++;
-	}
-	new[i] = '\0';
-}
-
-static void	set_mem(char **tab, char const *s, char c)
-{
-	size_t	count;
-	size_t	index;
-	size_t	i;
-
-	index = 0;
-	i = 0;
-	while (s[index])
+	while (str[i])
 	{
-		count = 0;
-		while (s[index + count] && s[index + count] != c)
-			count++;
-		if (count > 0)
+		if (str[i] == c)
 		{
-			tab[i] = malloc(sizeof(char) * (count + 1));
-			if (!tab[i])
-				return ;
-			fill_tab(tab[i], (s + index), c);
-			i++;
-			index = index + count;
+			j++;
+			while (str[i] && str[i] == c)
+				i++;
+			continue ;
 		}
-		else
-			index++;
+		i++;
 	}
-	tab[i] = 0;
+	if (str[i - 1] != c)
+		j++;
+	return (j);
+}
+
+static void	ft_wd(char **str, size_t *w, char c)
+{
+	size_t	i;
+
+	*str += *w;
+	*w = 0;
+	i = 0;
+	while (**str && **str == c)
+		(*str)++;
+	while ((*str)[i])
+	{
+		if ((*str)[i] == c)
+			return ;
+		(*w)++;
+		i++;
+	}
 }
 
 char	**ft_split(char const *s, char c)
 {
-	size_t	words;
-	char	**tab;
+	char	**ptr_w;
+	char	*str;
+	size_t	w;
+	size_t	i;
 
-	words = count_words(s, c);
-	tab = malloc(sizeof(char *) * (words + 1));
-	if (!tab)
+	if (!s)
 		return (NULL);
-	set_mem(tab, s, c);
-	return (tab);
+	ptr_w = (char **)malloc(sizeof(char *) * (ft_w(s, c) + 1));
+	if (!ptr_w)
+		return (NULL);
+	i = 0;
+	str = (char *)s;
+	w = 0;
+	while (i < ft_w(s, c))
+	{
+		ft_wd(&str, &w, c);
+		ptr_w[i] = (char *)malloc(sizeof(char) * (w + 1));
+		if (!ptr_w[i])
+			return (ft_free_w(ptr_w));
+		ft_strlcpy(ptr_w[i], str, w + 1);
+		i++;
+	}
+	ptr_w[i] = NULL;
+	return (ptr_w);
 }
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// int	main() {
-//     const char *original = "  Hello, world!  This is a test.  ";
-//     const char charset = ' ';
-
-//     char **split = ft_split(original, charset);
-
-//     if (split == NULL) 
-// 	{
-//         printf("Memory allocation failed\n");
-//         return 1;
-//     }
-
-//     for (size_t i = 0; split[i] != NULL; i++)
-// 	{
-//         printf("Word %zu: '%s'\n", i, split[i]);
-//         free(split[i]);
-//     }
-//     free(split);
-
-//     return 0;
-// }
