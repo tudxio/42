@@ -10,73 +10,38 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC	= ft_memcpy.c \
-		ft_calloc.c \
-		ft_strnstr.c \
-		ft_isalpha.c \
-		ft_strtrim.c \
-		ft_memmove.c \
-		ft_isalnum.c \
-		ft_isdigit.c \
-		ft_isprint.c \
-		ft_tolower.c \
-		ft_toupper.c \
-		ft_strncmp.c \
-		ft_strlen.c \
-		ft_bzero.c \
-		ft_memset.c \
-		ft_substr.c \
-		ft_strmapi.c \
-		ft_strchr.c \
-		ft_atoi.c \
-		ft_isascii.c \
-		ft_itoa.c \
-		ft_strjoin.c \
-		ft_split.c \
-		ft_memchr.c \
-		ft_strrchr.c \
-		ft_striteri.c \
-		ft_strdup.c \
-		ft_memcmp.c \
-		ft_strlcpy.c \
-		ft_strlcat.c \
-		ft_putstr_fd.c \
-		ft_putchar_fd.c\
-		ft_putendl_fd.c\
-		ft_putnbr_fd.c\
-		ft_striteri.c\
+# Variables
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -Iincludes
+NAME = libft.a
 
-BSRC = 	ft_lstnew_bonus.c\
-		ft_lstsize_bonus.c\
-		ft_lstadd_front_bonus.c\
-		ft_lstlast_bonus.c\
-		ft_lstadd_back_bonus.c\
-		ft_lstclear_bonus.c\
-		ft_lstdelone_bonus.c\
-		ft_lstiter_bonus.c\
-		ft_lstmap_bonus.c\
+# Fonctions pour obtenir les fichiers sources
+SRC_DIRS = src/ft_is src/ft_mem src/ft_put src/ft_str src/ft_to
+SRC = $(shell find $(SRC_DIRS) -name '*.c')
+OBJS = $(SRC:.c=.o)
 
-NAME	= libft.a
+# Fichiers bonus
+BSRC = $(wildcard src/ft_lst/*.c)
+BOBJS = $(BSRC:.c=.o)
 
-OBJS	= $(SRC:.c=.o)
+# Règles
+.PHONY: all clean fclean re bonus
 
-BOBJS	= $(BSRC:.c=.o)
+all: $(NAME)
 
-.c.o	:
-		cc -Wall -Werror -Wextra -c $< -o ${<:.c=.o}
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
 
-${NAME} : ${OBJS}
-		ar rc ${NAME} ${OBJS}
+bonus: $(BOBJS)
+	ar rc $(NAME) $(BOBJS)
 
-bonus : ${BOBJS}
-		ar rc ${NAME} ${BOBJS}
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-all : ${NAME}
+clean:
+	rm -f $(OBJS) $(BOBJS)
 
-clean :
-		rm -f ${OBJS} ${BOBJS}
+fclean: clean
+	rm -f $(NAME)
 
-fclean : clean
-		rm -f ${NAME}
-
-re : fclean all
+re: fclean all
