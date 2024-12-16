@@ -10,67 +10,94 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC	= ft_memcpy.c \
-		ft_calloc.c \
-		ft_strnstr.c \
-		ft_isalpha.c \
-		ft_strtrim.c \
-		ft_memmove.c \
-		ft_isalnum.c \
-		ft_isdigit.c \
-		ft_isprint.c \
-		ft_tolower.c \
-		ft_toupper.c \
-		ft_strncmp.c \
-		ft_strlen.c \
-		ft_bzero.c \
-		ft_memset.c \
-		ft_substr.c \
-		ft_strmapi.c \
-		ft_strchr.c \
-		ft_atoi.c \
-		ft_isascii.c \
-		ft_itoa.c \
-		ft_strjoin.c \
-		ft_split.c \
-		ft_memchr.c \
-		ft_strrchr.c \
-		ft_striteri.c \
-		ft_strdup.c \
-		ft_memcmp.c \
-		ft_strlcpy.c \
-		ft_strlcat.c \
-		ft_putstr_fd.c \
-		ft_putchar_fd.c\
-		ft_putendl_fd.c\
-		ft_putnbr_fd.c\
-		ft_striteri.c\
-		ft_lstnew_bonus.c\
-		ft_lstsize_bonus.c\
-		ft_lstadd_front_bonus.c\
-		ft_lstlast_bonus.c\
-		ft_lstadd_back_bonus.c\
-		ft_lstclear_bonus.c\
-		ft_lstdelone_bonus.c\
-		ft_lstiter_bonus.c\
-		ft_lstmap_bonus.c\
+# Standard
 
-NAME	= libft.a
+NAME		=	libft.a
+INCLUDES	=	../include
+SRCS_DIR 	=	src/
+OBJS_DIR	=	obj/
+CC			=	gcc
+CFLAGS		=	-Wall -Werror -Wextra -I$(INCLUDES)
+RM			=	rm -f
+AR			=	ar rcs
 
-OBJS	= $(SRC:.c=.o)
+# Sources
 
-.c.o	:
-		cc -Wall -Werror -Wextra -c $< -o ${<:.c=.o}
+SRC_FILES	=	ft_memcpy \
+				ft_calloc \
+				ft_strnstr \
+				ft_isalpha \
+				ft_strtrim \
+				ft_memmove \
+				ft_isalnum \
+				ft_isdigit \
+				ft_isprint \
+				ft_tolower \
+				ft_toupper \
+				ft_strncmp \
+				ft_strlen \
+				ft_bzero \
+				ft_memset \
+				ft_substr \
+				ft_strmapi \
+				ft_strchr \
+				ft_atoi \
+				ft_isascii \
+				ft_itoa \
+				ft_strjoin \
+				ft_split \
+				ft_memchr \
+				ft_strrchr \
+				ft_striteri \
+				ft_strdup \
+				ft_memcmp \
+				ft_strlcpy \
+				ft_strlcat \
+				ft_putstr_fd \
+				ft_putchar_fd \
+				ft_putendl_fd \
+				ft_putnbr_fd \
+				ft_striteri \
+				ft_lstnew_bonus \
+				ft_lstsize_bonus \
+				ft_lstadd_front_bonus \
+				ft_lstlast_bonus \
+				ft_lstadd_back_bonus \
+				ft_lstclear_bonus \
+				ft_lstdelone_bonus \
+				ft_lstiter_bonus \
+				ft_lstmap_bonus
 
-${NAME} : ${OBJS}
-		ar rc ${NAME} ${OBJS}
+SRC 		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJS 		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-all : ${NAME}
+###
 
-clean :
-		rm -f ${OBJS}
+OBJSF		=	.cache_exists
 
-fclean : clean
-		rm -f ${NAME}
+all:		$(NAME)
 
-re : fclean all
+$(NAME):	$(OBJS)
+			@$(AR) $(NAME) $(OBJS)
+			@ranlib $(NAME)
+
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c | $(OBJSF)
+			@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSF):
+			@mkdir -p $(OBJS_DIR)
+
+clean:
+			@$(RM) -rf $(OBJS_DIR)
+			@$(RM) -f $(OBJSF)
+
+fclean:		clean
+			@$(RM) -f $(NAME)
+
+re:			fclean all
+
+norm:
+	@norminette $(SRC) $(INCLUDES) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm
+

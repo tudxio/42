@@ -6,48 +6,59 @@
 #    By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 15:09:04 by lobenard          #+#    #+#              #
-#    Updated: 2024/12/13 19:06:13 by lobenard         ###   ########.fr        #
+#    Updated: 2024/12/16 17:06:14 by lobenard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Makefile de printf
 
-NAME			=	libftprintf.a
+NAME		= libftprintf.a
+INCLUDE		= include
+LIBFT		= libft
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -I
+RM			= rm -f
+AR			= ar rcs
 
-CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -Ilibft
-AR				=	ar rc
-ARFLAGS 		=	rcs
-RM				=	rm -rf
+#Sources
 
-SRC				=	ft_printf.c ft_printchar.c ft_printstr.c ft_printptr.c ft_printnbr.c 			
+SRC_FILES	=	ft_printf ft_print_char ft_print_ptr ft_print_nbr ft_print_str ft_print_unsigned ft_print_hexa
 
-OBJS	= $(SRC:.c=.o)
 
-LIBFT_PATH		=	./libft
-LIBFT			=	$(LIBFT_PATH)/libft.a
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-all:				$(NAME)
+###
 
-bonus:				all
+OBJF		=	.cache_exists
 
-$(NAME):			$(LIBFT) $(OBJS)
-					$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-					$(AR) $(ARFLAGS) $(NAME) $(LIBFT)
+all:		$(NAME)
 
-$(LIBFT): 
-					make -C $(LIBFT_PATH)
+$(NAME):	$(OBJ)
+			@make -C $(LIBFT)
+			@cp libft/libft.a .
+			@mv libft.a $(NAME)
+			@$(AR) $(NAME) $(OBJ)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
 clean:
-					make -C $(LIBFT_PATH) clean
-					$(RM) $(OBJS)
+			@$(RM) -rf $(OBJ_DIR)
+			@make clean -C $(LIBFT)
 
-fclean:				clean
-					make -C $(LIBFT_PATH) fclean
-					$(RM) $(NAME)
+fclean:		clean
+			@$(RM) -f $(NAME)
+			@$(RM) -f $(LIBFT)/libft.a
 
-re:					fclean all
+re:			fclean all
 
-.PHONY:				all bonus clean fclean re libft
+norm:
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
 
-
+.PHONY:		all clean fclean re norm
