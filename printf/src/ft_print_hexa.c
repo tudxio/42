@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:56:02 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/16 17:34:50 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:34:15 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,24 @@
 #include <ft_printf.h>
 #include <libft.h>
 
-int	ft_hex_len(unsigned	int num)
+int	ft_puthex(unsigned int n, int maj)
 {
 	int	len;
 
 	len = 0;
-	while (num != 0)
+	if (n >= 16)
 	{
-		len++;
-		num = num / 16;
+		len += ft_puthex(n / 16, maj);
+		n = n % 16;
+	}
+	if (n < 10)
+		len += ft_putchar(n + '0');
+	else
+	{
+		if (maj == 'X')
+			len += ft_putchar(n - 10 + 'A');
+		else
+			len += ft_putchar(n - 10 + 'a');
 	}
 	return (len);
-}
-
-void	ft_put_hex(unsigned int num, const char format)
-{
-	if (num >= 16)
-	{
-		ft_put_hex(num / 16, format);
-		ft_put_hex(num % 16, format);
-	}
-	else
-	{
-		if (num <= 9)
-			ft_putchar_fd((num + '0'), 1);
-		else
-		{
-			if (format == 'x')
-				ft_putchar_fd((num - 10 + 'a'), 1);
-			if (format == 'X')
-				ft_putchar_fd((num - 10 + 'A'), 1);
-		}
-	}
-}
-
-int	ft_print_hexa(unsigned int num, const char format)
-{
-	if (num == 0)
-		return (write(1, "0", 1));
-	else
-		ft_put_hex(num, format);
-	return (ft_hex_len(num));
 }

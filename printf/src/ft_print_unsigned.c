@@ -6,58 +6,23 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:09:28 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/16 17:37:06 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:54:34 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
 
-int	ft_num_len(unsigned	int num)
+int	ft_putunbr(unsigned int n)
 {
 	int	len;
 
 	len = 0;
-	while (num != 0)
+	if (n >= 10)
 	{
-		len++;
-		num = num / 10;
+		len += ft_putunbr(n / 10);
+		n = n % 10;
 	}
+	len += ft_putchar(n + '0');
 	return (len);
-}
-
-char	*ft_uitoa(unsigned int n)
-{
-	char	*num;
-	int		len;
-
-	len = ft_num_len(n);
-	num = (char *)malloc(sizeof(char) * (len + 1));
-	if (!num)
-		return (0);
-	num[len] = '\0';
-	while (n != 0)
-	{
-		num[len - 1] = n % 10 + 48;
-		n = n / 10;
-		len--;
-	}
-	return (num);
-}
-
-int	ft_print_unsigned(unsigned int n)
-{
-	int		print_length;
-	char	*num;
-
-	print_length = 0;
-	if (n == 0)
-		print_length += write(1, "0", 1);
-	else
-	{
-		num = ft_uitoa(n);
-		print_length += ft_printstr(num);
-		free(num);
-	}
-	return (print_length);
 }

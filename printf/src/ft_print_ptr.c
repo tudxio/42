@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:51:11 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/16 18:14:41 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:19:47 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	ft_putptr(uintptr_t num)
 	else
 	{
 		if (num <= 9)
-			ft_putchar_fd((num + '0'), 1);
+			ft_putchar(num + '0');
 		else
-			ft_putchar_fd((num - 10 + 'a'), 1);
+			ft_putchar(num - 10 + 'a');
 	}
 }
 

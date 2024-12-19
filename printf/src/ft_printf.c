@@ -6,7 +6,7 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 15:16:58 by lobenard          #+#    #+#             */
-/*   Updated: 2024/12/16 17:41:19 by lobenard         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:26:36 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ int	ft_format(va_list args, const char format)
 
 	print = 0;
 	if (format == 'c')
-		print += ft_printchar(va_arg(args, int));
+		print += ft_putchar(va_arg(args, int));
 	else if (format == 's')
-		print += ft_printstr(va_arg(args, char *));
+		print += ft_putstr(va_arg(args, char *));
 	else if (format == 'p')
 		print += ft_printptr(va_arg(args, unsigned long long));
 	else if (format == 'd' || format == 'i')
-		print += ft_printnbr(va_arg(args, int));
+		print += ft_putnbr(va_arg(args, int));
 	else if (format == 'u')
-		print += ft_print_unsigned(va_arg(args, unsigned int));
+		print += ft_putunbr(va_arg(args, unsigned int));
 	else if (format == 'x' || format == 'X')
-		print += ft_print_hexa(va_arg(args, unsigned int), format);
+		print += ft_puthex(va_arg(args, unsigned int), format);
 	else if (format == '%')
-		print += ft_printchar('%');
+		print += ft_putchar('%');
 	else
-		print += ft_printchar(format);
+		print += ft_putchar(format);
 	return (print);
 }
 
@@ -55,7 +55,7 @@ int	ft_printf(const char *str, ...)
 		}
 		else
 		{
-			print += ft_printchar(str[i]);
+			print += ft_putchar(str[i]);
 			i++;
 		}
 	}
