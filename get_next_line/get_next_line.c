@@ -6,13 +6,11 @@
 /*   By: lobenard <lobenard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:15:05 by lobenard          #+#    #+#             */
-/*   Updated: 2025/01/21 13:22:49 by lobenard         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:50:54 by lobenard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-
 
 char	*get_next_line(int fd)
 {
