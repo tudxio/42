@@ -13,6 +13,7 @@ Debian : Flexible, stable, adapté aux débutants
 
 Débian :
     Simplifié, polyvalent, gestionnaire de paquets basé sur APT.
+
 Rocky :
     Orienté entreprises, gestionnaire de paquets basé sur DNF/YUM.
 
@@ -390,6 +391,3 @@ Supprimer la/les ligne(s) suivante(s)
 - [x] Vérifier que le script existe toujours au même endroit
 - [x] Vérifier que ses droits sont restés les mêmes
 - [x] Vérifier qu'il n'a pas été modifié »
-
-Recommencer
-```
