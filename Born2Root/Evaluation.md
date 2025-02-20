@@ -1,173 +1,176 @@
-# Evaluation Questions
+Voici la traduction du fichier en français :
 
-Create a `signature.txt` of the virtual machine image
+```plaintext
+# Questions d'évaluation
+
+Créer un fichier `signature.txt` de l'image de la machine virtuelle
 
 ```bash
 sha1sum ~/VirtualBox\ VMs/Born2beRoot/Born2beRoot.vdi > signature.txt
 ```
 
-## How a Virtual Machine works
+## Comment fonctionne une machine virtuelle
 
-A virtual machine uses software emulation of hardware to create an isolated environment on top of hardware where a separate system with its own OS can be run. Therefore allowing for things like running Debian inside a Mac.
+Une machine virtuelle utilise une émulation logicielle du matériel pour créer un environnement isolé sur le matériel où un système séparé avec son propre OS peut être exécuté. Cela permet, par exemple, d'exécuter Debian sur un Mac.
 
-## Choice of Operating System
+## Choix du système d'exploitation
 
-It's easier to install and configure than CentOS (and I haven't used CentOS before). I use Ubuntu and Pop OS for personal use which are both Debian flavours and wanted to understand them more deeply.
+Il est plus facile à installer et à configurer que CentOS (et je n'ai jamais utilisé CentOS). J'utilise Ubuntu et Pop OS pour un usage personnel, qui sont tous deux des variantes de Debian, et je voulais les comprendre plus en profondeur.
 
-## The basic differences between CentOS and Debian
+## Les différences de base entre CentOS et Debian
 
-CentOS vs Debian are two flavors of Linux operating systems. CentOS, as said above, is a Linux distribution. It is free and open-source. It is enterprise-class – industries can use meaning for server building; it is supported by a large community and is functionally supported by its upstream source, Red Hat Enterprise Linux. Debian is a Unix like computer operating system that is made up of open source components. It is built and supported by a group of individuals who are under the Debian project.
+CentOS et Debian sont deux variantes de systèmes d'exploitation Linux. CentOS, comme mentionné ci-dessus, est une distribution Linux. Elle est gratuite et open-source. Elle est de classe entreprise – les industries peuvent l'utiliser pour construire des serveurs ; elle est soutenue par une grande communauté et est fonctionnellement soutenue par sa source en amont, Red Hat Enterprise Linux. Debian est un système d'exploitation informatique de type Unix composé de composants open-source. Il est construit et soutenu par un groupe d'individus sous le projet Debian.
 
-Debian uses Linux as its Kernel. Fedora, CentOS, Oracle Linux are all different distribution from Red Hat Linux and are variant of RedHat Linux. Ubuntu, Kali, etc., are variant of Debian. CentOS vs Debian both are used as internet servers or web servers like web, email, FTP, etc.
+Debian utilise Linux comme son noyau. Fedora, CentOS, Oracle Linux sont toutes des distributions différentes de Red Hat Linux et sont des variantes de RedHat Linux. Ubuntu, Kali, etc., sont des variantes de Debian. CentOS et Debian sont tous deux utilisés comme serveurs Internet ou serveurs web comme web, email, FTP, etc.
 
-## The purpose of virtual machines
+## Le but des machines virtuelles
 
-VMs may be deployed to accommodate different levels of processing power needs, to run software that requires a different operating system, or to test applications in a safe, sandboxed environment.
+Les VM peuvent être déployées pour répondre à différents niveaux de besoins en puissance de traitement, pour exécuter des logiciels nécessitant un système d'exploitation différent, ou pour tester des applications dans un environnement sûr et isolé.
 
-## The difference between `aptitude` and `apt`
+## La différence entre `aptitude` et `apt`
 
-Aptitude is a higher-level package manager while APT is lower-level package manager which can be used by other 
-higher-level package managers.
+Aptitude est un gestionnaire de paquets de haut niveau tandis qu'APT est un gestionnaire de paquets de bas niveau qui peut être utilisé par d'autres gestionnaires de paquets de haut niveau.
 
-Aptitude is vaster in functionality than **apt-get** and integrates functionalities of **apt-get** and its other variants including **apt-mark** and **apt-cache**.
+Aptitude est plus vaste en fonctionnalités qu'**apt-get** et intègre les fonctionnalités de **apt-get** et de ses autres variantes, y compris **apt-mark** et **apt-cache**.
 
-[Read more](https://www.tecmint.com/difference-between-apt-and-aptitude/)
+[En savoir plus](https://www.tecmint.com/difference-between-apt-and-aptitude/)
 
-## What is APPArmor
+## Qu'est-ce qu'APPArmor
 
-Check APPArmor status
+Vérifier le statut d'APPArmor
 
 ```bash
 sudo aa-status
 ```
 
-AppArmor ("Application Armor") is a Linux kernel security module that allows the system administrator to restrict programs' capabilities with per-program profiles.
+AppArmor ("Application Armor") est un module de sécurité du noyau Linux qui permet à l'administrateur système de restreindre les capacités des programmes avec des profils par programme.
 
-Profiles can allow capabilities like network access, raw socket access, and the permission to read, write, or execute files on matching paths.
+Les profils peuvent autoriser des capacités comme l'accès au réseau, l'accès aux sockets brutes, et la permission de lire, écrire ou exécuter des fichiers sur des chemins correspondants.
 
-[Read more](https://en.wikipedia.org/wiki/AppArmor)
-## Check
+[En savoir plus](https://en.wikipedia.org/wiki/AppArmor)
 
-- [x] Script running every 10min
-- [x] No graphical user interface
-- [x] Password requested on boot up
-- [x] Login with `msousa`
-- [x] Password must follow rules
+## Vérification
 
-## Check that the UFW service is started
+- [x] Script s'exécutant toutes les 10 minutes
+- [x] Pas d'interface graphique
+- [x] Mot de passe demandé au démarrage
+- [x] Connexion avec `msousa`
+- [x] Le mot de passe doit suivre des règles
+
+## Vérifier que le service UFW est démarré
 
 ```bash
 sudo ufw status
 ```
 
-## Check that the SSH service is started
+## Vérifier que le service SSH est démarré
 
 ```bash
 sudo service ssh status
 ```
 
-## Check that the operating system is Debian
+## Vérifier que le système d'exploitation est Debian
 
 ```bash
 cat /etc/os-release | grep PRETTY_NAME
 ```
 
-## Check that `msousa` is member of `sudo` and `user42` groups
+## Vérifier que `msousa` est membre des groupes `sudo` et `user42`
 
 ```bash
 groups msousa
 ```
 
-## Check password policy rules
+## Vérifier les règles de politique de mot de passe
 
-Password expiry: line 160 and 161.
+Expiration du mot de passe : lignes 160 et 161.
 
 ```bash
 vi /etc/login.defs
 ```
 
-Password policy: line 25.
+Politique de mot de passe : ligne 25.
 
 ```bash
 vi /etc/pam.d/common-password
 ```
 
-### Create a new user
+### Créer un nouvel utilisateur
 
 ```bash
 sudo adduser new_user
 ```
 
-### Assign password
+### Attribuer un mot de passe
 
-Confirm it follows the password policy
+Confirmer qu'il suit la politique de mot de passe
 
-### Explain how password rules were setup
+### Expliquer comment les règles de mot de passe ont été configurées
 
 ```bash
 vi /etc/pam.d/common-password
 ```
 
-## Create group `evaluating` and add created user
+## Créer un groupe `evaluating` et ajouter l'utilisateur créé
 
 ```bash
 sudo addgroup evaluating
 sudo adduser new_user evaluating
 ```
 
-### Check that user belongs to new group
+### Vérifier que l'utilisateur appartient au nouveau groupe
 
 ```bash
 groups new_user
 ```
 
-## Explain advantages of password policy and advantages and disadvantages of policy implementation
+## Expliquer les avantages de la politique de mot de passe et les avantages et inconvénients de la mise en œuvre de la politique
 
-In theory, the main benefit of password complexity rules is that they enforce the use of unique passwords that are harder to crack. The more requirements you enforce, the higher the number of possible combinations of letters, numbers, and characters.
+En théorie, le principal avantage des règles de complexité des mots de passe est qu'elles imposent l'utilisation de mots de passe uniques qui sont plus difficiles à craquer. Plus vous imposez de contraintes, plus le nombre de combinaisons possibles de lettres, chiffres et caractères est élevé.
 
-Password complexity rules try to enforce this “difficult to crack” requirement, but they aren’t always successful. This is partly to do with the diminishing returns involved in increasing complexity
+Les règles de complexité des mots de passe tentent d'imposer cette exigence de "difficulté à craquer", mais elles ne sont pas toujours couronnées de succès. Cela est en partie dû aux rendements décroissants impliqués dans l'augmentation de la complexité.
 
-How much better is a 15 character password than a 30 character password if hackers know that longer password is frequently used? And is it better if the user can’t remember the password? Password complexity only scales up to a certain point. Beyond a certain point, a complex password can be difficult to crack if the number of possible combinations is extremely high, but it can also be too complex to be useful to users.
+À quel point un mot de passe de 15 caractères est-il meilleur qu'un mot de passe de 30 caractères si les pirates savent que ce mot de passe plus long est fréquemment utilisé ? Et est-il meilleur si l'utilisateur ne peut pas s'en souvenir ? La complexité des mots de passe ne s'échelonne que jusqu'à un certain point. Au-delà d'un certain point, un mot de passe complexe peut être difficile à craquer si le nombre de combinaisons possibles est extrêmement élevé, mais il peut aussi être trop complexe pour être utile aux utilisateurs.
 
-## Check that the hostname of the machine is `msousa42`
+## Vérifier que le nom d'hôte de la machine est `msousa42`
 
 ```bash
 uname -n
-# or 
+# ou
 hostname
 ```
 
-## Modify hostname with evaluator login and reboot to confirm change
+## Modifier le nom d'hôte avec la connexion de l'évaluateur et redémarrer pour confirmer le changement
 
 ```bash
 sudo adduser new_user sudo
 sudo login new_user
-sudo vi /etc/hostname # change to new_user42
+sudo vi /etc/hostname # changer en new_user42
 sudo reboot
 ```
 
-### Restore original hostname
+### Restaurer le nom d'hôte d'origine
 
 ```bash
-sudo vi /etc/hostname # change to msousa42
+sudo vi /etc/hostname # changer en msousa42
 sudo reboot
 ```
 
-## How to view partitions
+## Comment afficher les partitions
 
 ```bash
 lsblk
 ```
 
-### Compare partition output with example in subject
+### Comparer la sortie des partitions avec l'exemple dans le sujet
 
 ```bash
 NAME                    MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
-sda                       8:0    0    8G  0 disk  
+sda                       8:0    0    8G  0 disk
 |-sda1                    8:1    0  476M  0 part  /boot
-|-sda2                    8:2    0    1K  0 part  
-`-sda5                    8:5    0  7.5G  0 part  
-  `-sda5_crypt          254:0    0  7.5G  0 crypt 
+|-sda2                    8:2    0    1K  0 part
+`-sda5                    8:5    0  7.5G  0 part
+  `-sda5_crypt          254:0    0  7.5G  0 crypt
     |-LVMGroup-root     254:1    0  1.9G  0 lvm   /
     |-LVMGroup-swap     254:2    0  952M  0 lvm   [SWAP]
     |-LVMGroup-home     254:3    0  952M  0 lvm   /home
@@ -178,171 +181,171 @@ sda                       8:0    0    8G  0 disk
 sr0                      11:0    1 1024M  0 rom
 ```
 
-## Brief explanation of how LVM works
+## Brève explication du fonctionnement de LVM
 
-It works by chunking the physical volumes (PVs) into physical extents (PEs). The PEs are mapped onto logical extents (LEs) which are then pooled into volume groups (VGs). These groups are linked together into logical volumes (LVs) that act as virtual disk partitions and that can be managed as such by using LVM.
+Il fonctionne en découpant les volumes physiques (PV) en extensions physiques (PE). Les PE sont mappées sur des extensions logiques (LE) qui sont ensuite regroupées en groupes de volumes (VG). Ces groupes sont liés entre eux en volumes logiques (LV) qui agissent comme des partitions de disque virtuelles et qui peuvent être gérées comme telles en utilisant LVM.
 
-[Read more](https://searchdatacenter.techtarget.com/definition/logical-volume-management-LVM)
+[En savoir plus](https://searchdatacenter.techtarget.com/definition/logical-volume-management-LVM)
 
-## What is LVM about
+## Qu'est-ce que LVM ?
 
-Logical volume management (LVM) is a form of storage virtualization that offers system administrators a more flexible approach to managing disk storage space than traditional partitioning. The goal of LVM is to facilitate managing the sometimes conflicting storage needs of multiple end users.
+La gestion des volumes logiques (LVM) est une forme de virtualisation du stockage qui offre aux administrateurs système une approche plus flexible pour gérer l'espace de stockage sur disque que le partitionnement traditionnel. L'objectif de LVM est de faciliter la gestion des besoins de stockage parfois conflictuels de plusieurs utilisateurs finaux.
 
-## Check `sudo` program is properly installed
+## Vérifier que le programme `sudo` est correctement installé
 
 ```bash
 dpkg -l | grep sudo
 ```
 
-## Assign new user to `sudo` group
+## Attribuer le nouvel utilisateur au groupe `sudo`
 
 ```bash
 sudo adduser new_user sudo
 ```
 
-## Explain value and operation of sudo using examples
+## Expliquer la valeur et le fonctionnement de sudo en utilisant des exemples
 
-Sudo stands for SuperUser DO and is used to access restricted files and operations. By default, Linux restricts access to certain parts of the system preventing sensitive files from being compromised.
+Sudo signifie SuperUser DO et est utilisé pour accéder à des fichiers et opérations restreints. Par défaut, Linux restreint l'accès à certaines parties du système, empêchant ainsi la compromission de fichiers sensibles.
 
-The sudo command temporarily elevates privileges allowing users to complete sensitive tasks without logging in as the root user.
+La commande sudo élève temporairement les privilèges, permettant aux utilisateurs de terminer des tâches sensibles sans se connecter en tant qu'utilisateur root.
 
 ```bash
-apt-get update # Error 13: Permission denied
+apt-get update # Erreur 13 : Permission refusée
 sudo apt-get update
 ```
 
-[Read more](https://phoenixnap.com/kb/linux-sudo-command)
+[En savoir plus](https://phoenixnap.com/kb/linux-sudo-command)
 
-## Show the implementation of the subject rules
+## Montrer la mise en œuvre des règles du sujet
 
 ```bash
 vi /etc/sudoers.d/sudoconfig
 ```
 
-[What is TTY](https://www.howtogeek.com/428174/what-is-a-tty-on-linux-and-how-to-use-the-tty-command/)
+[Qu'est-ce que TTY](https://www.howtogeek.com/428174/what-is-a-tty-on-linux-and-how-to-use-the-tty-command/)
 
-## Verify that the `/var/log/sudo/` folder exists and has a file
+## Vérifier que le dossier `/var/log/sudo/` existe et contient un fichier
 
 ```bash
 sudo ls /var/log/sudo/
 ```
 
-Has file `seq`.
+Contient le fichier `seq`.
 
-### Check contents of files in this folder
+### Vérifier le contenu des fichiers dans ce dossier
 
 ```bash
 sudo ls /var/log/sudo/00/00
-# run sudo command
-sudo ls /var/log/sudo/00/00/<newfolder> 
+# exécuter une commande sudo
+sudo ls /var/log/sudo/00/00/<nouveau_dossier>
 ```
 
-### Check there is a history of commands using sudo
+### Vérifier qu'il y a un historique des commandes utilisant sudo
 
 ```bash
-sudo cat /.../log # Input log
-sudo cat /.../ttyout # Output log
+sudo cat /.../log # Journal d'entrée
+sudo cat /.../ttyout # Journal de sortie
 ```
 
-### Run a command using sudo and check if files updated
+### Exécuter une commande en utilisant sudo et vérifier si les fichiers ont été mis à jour
 
 ```bash
 sudo apt update
-sudo ls /var/log/sudo/00/00 # should have new folder
+sudo ls /var/log/sudo/00/00 # devrait avoir un nouveau dossier
 ```
 
-## Check that UFW is properly installed
+## Vérifier que UFW est correctement installé
 
 ```bash
 dpkg -l | grep ufw
 ```
 
-### Check that it is working properly
+### Vérifier qu'il fonctionne correctement
 
 ```bash
 sudo ufw status
 ```
 
-### Explain what UFW is and the value of using it
+### Expliquer ce qu'est UFW et la valeur de son utilisation
 
-Uncomplicated Firewall is a program for managing a netfilter firewall designed to be easy to use. It uses a command-line interface consisting of a small number of simple commands, and uses iptables for configuration.
+Uncomplicated Firewall est un programme de gestion de pare-feu netfilter conçu pour être facile à utiliser. Il utilise une interface en ligne de commande constituée d'un petit nombre de commandes simples et utilise iptables pour la configuration.
 
-UFW aims to provide an easy to use interface for people unfamiliar with firewall concepts, while at the same time simplifies complicated iptables commands to help an administrator who knows what he or she is doing.
+UFW vise à fournir une interface facile à utiliser pour les personnes non familières avec les concepts de pare-feu, tout en simplifiant les commandes iptables compliquées pour aider un administrateur qui sait ce qu'il fait.
 
-[Read more](https://wiki.ubuntu.com/UncomplicatedFirewall)
+[En savoir plus](https://wiki.ubuntu.com/UncomplicatedFirewall)
 
-### List active rules should include one for port 4242
+### Lister les règles actives devrait inclure une pour le port 4242
 
 ```bash
 sudo ufw status | grep 4242
 ```
 
-### Add a new rule for port 8080
+### Ajouter une nouvelle règle pour le port 8080
 
 ```bash
 sudo ufw allow 8080
 sudo ufw status
 ```
 
-### Delete the new rule
+### Supprimer la nouvelle règle
 
-List rules numbered
+Lister les règles numérotées
 
 ```bash
 sudo ufw status numbered
 ```
 
-Delete rule
+Supprimer la règle
 
 ```bash
 sudo ufw delete $NUMBER
 ```
 
-## Check that the SSH service is properly installed
+## Vérifier que le service SSH est correctement installé
 
 ```bash
 dpkg -l | grep openssh-server
 ```
 
-### Check that it is working properly
+### Vérifier qu'il fonctionne correctement
 
 ```bash
 sudo service ssh status
 ```
 
-### Explain what SSH is and the value of using it
+### Expliquer ce qu'est SSH et la valeur de son utilisation
 
-Secure Shell (SSH) is a cryptographic network protocol for operating network services securely over an unsecured network. Typical applications include remote command-line, login, and remote command execution, but any network service can be secured with SSH.
+Secure Shell (SSH) est un protocole de réseau cryptographique permettant d'exploiter des services réseau de manière sécurisée sur un réseau non sécurisé. Les applications typiques incluent la ligne de commande à distance, la connexion et l'exécution de commandes à distance, mais tout service réseau peut être sécurisé avec SSH.
 
-SSH provides password or public-key based authentication and encrypts connections between two network endpoints. It is a secure alternative to legacy login protocols (such as telnet, rlogin) and insecure file transfer methods (such as FTP).
+SSH fournit une authentification par mot de passe ou par clé publique et chiffre les connexions entre deux points de terminaison réseau. C'est une alternative sécurisée aux protocoles de connexion hérités (comme telnet, rlogin) et aux méthodes de transfert de fichiers non sécurisées (comme FTP).
 
-[Read more](https://en.wikipedia.org/wiki/Secure_Shell)
+[En savoir plus](https://en.wikipedia.org/wiki/Secure_Shell)
 
-### Verify that the SSH service only uses port 4242
+### Vérifier que le service SSH n'utilise que le port 4242
 
 ```bash
 sudo service ssh status | grep listening
-# or check configs
+# ou vérifier les configurations
 sudo vi /etc/ssh/sshd_config
-sudo vi /etc/ssh/ssh_config 
+sudo vi /etc/ssh/ssh_config
 ```
 
-### Login with SSH from host machine
+### Connexion avec SSH depuis la machine hôte
 
 ```bash
-ssh msousa@127.0.0.1 -p 4242 # or
-ssh msousa@0.0.0.0 -p 4242 # or
+ssh msousa@127.0.0.1 -p 4242 # ou
+ssh msousa@0.0.0.0 -p 4242 # ou
 ssh msousa@localhost -p 4242
 ```
 
-### Make sure you cannot SSH login with root user
+### Assurez-vous de ne pas pouvoir vous connecter en SSH avec l'utilisateur root
 
 ```bash
 msousa@msousa42:~$ login root
-login: Cannot possibly work without effective root
+login: Impossible de fonctionner sans root effectif
 ```
 
-## Explanation of the monitoring script by showing the code
+## Explication du script de surveillance en montrant le code
 
 ### architecture
 
@@ -350,39 +353,39 @@ login: Cannot possibly work without effective root
 architecture=$(uname -a)
 ```
 
-uname (short for unix name) is a computer program in Unix and Unix-like computer operating systems that prints the name, version and other details about the current machine and the operating system running on it.
+uname (abréviation de unix name) est un programme informatique sous Unix et les systèmes d'exploitation de type Unix qui affiche le nom, la version et d'autres détails sur la machine actuelle et le système d'exploitation qui y est exécuté.
 
 ### physical_cpu
 
-[Read more](https://www.cyberciti.biz/faq/check-how-many-cpus-are-there-in-linux-system/)
+[En savoir plus](https://www.cyberciti.biz/faq/check-how-many-cpus-are-there-in-linux-system/)
 
 ```bash
 physical_cpu=$(grep "physical id" /proc/cpuinfo | sort | uniq | wc -l)
-# or
+# ou
 lscpu | grep "CPU(s)"
 ```
 
-Use `/proc/cpuinfo` file that lists CPUs.
+Utiliser le fichier `/proc/cpuinfo` qui liste les CPU.
 
 ### virtual_cpu
 
-[Read more](https://webhostinggeeks.com/howto/how-to-display-the-number-of-processors-vcpu-on-linux-vps/)
+[En savoir plus](https://webhostinggeeks.com/howto/how-to-display-the-number-of-processors-vcpu-on-linux-vps/)
 
-If your processors are multi-core, you need to know how many virtual processors you have. You can count those by looking for lines that start with "processor".
+Si vos processeurs sont multi-cœurs, vous devez savoir combien de processeurs virtuels vous avez. Vous pouvez les compter en recherchant les lignes qui commencent par "processor".
 
-[Read more](https://www.networkworld.com/article/2715970/counting-processors-on-your-linux-box.html)
+[En savoir plus](https://www.networkworld.com/article/2715970/counting-processors-on-your-linux-box.html)
 
 ```bash
 virtual_cpu=$(grep -c ^processor /proc/cpuinfo)
 ```
 
-`-c` flag is a count on the `grep`
+Le flag `-c` est un compte sur le `grep`
 
 ### memory_usage
 
-[`awk` built-in variables](https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/)
+[Variables intégrées `awk`](https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/)
 
-[Read more](https://linuxcommando.blogspot.com/2008/04/using-awk-to-extract-lines-in-text-file.html)
+[En savoir plus](https://linuxcommando.blogspot.com/2008/04/using-awk-to-extract-lines-in-text-file.html)
 
 ```bash
 memory_usage=$(free -m | awk 'NR==2{printf "%s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }')
@@ -394,13 +397,13 @@ memory_usage=$(free -m | awk 'NR==2{printf "%s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2
 total_disk=$(df -Bg | grep '^/dev/' | grep -v '/boot$' | awk '{ft += $2} END {print ft}')
 ```
 
-`df` disk utility, `-Bg` displays in Gigabytes.
+`df` utilitaire de disque, `-Bg` affiche en Gigaoctets.
 
-`ft` is a variable name, `END` stops the command from reaching the print until it has gone through all the lines.
+`ft` est un nom de variable, `END` arrête la commande jusqu'à ce qu'elle ait parcouru toutes les lignes.
 
-Add-up total.
+Additionner le total.
 
-`-v` flag on `grep` returns non-matching lines.
+Le flag `-v` sur `grep` retourne les lignes non correspondantes.
 
 ### used_disk
 
@@ -408,9 +411,9 @@ Add-up total.
 used_disk=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} END {print ut}')
 ```
 
-`-Bm` displays in Megabytes.
+`-Bm` affiche en Mégaoctets.
 
-Add-up used.
+Additionner l'utilisé.
 
 ### percent_used_disk
 
@@ -418,7 +421,7 @@ Add-up used.
 percent_used_disk=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} {ft+= $2} END {printf("%d"), ut/ft*100}')
 ```
 
-Need to do the same as before but both in the same measuring unit to get a meaningful percentage.
+Il faut faire la même chose qu'avant mais dans la même unité de mesure pour obtenir un pourcentage significatif.
 
 ### cpu_load
 
@@ -426,11 +429,11 @@ Need to do the same as before but both in the same measuring unit to get a meani
 cpu_load=$(top -bn1 | grep load | awk '{printf "%.2f%%\n", $(NF-2)}')
 ```
 
-[`top` utility](https://man7.org/linux/man-pages/man1/top.1.html)
+[Utilitaire `top`](https://man7.org/linux/man-pages/man1/top.1.html)
 
-`-b` flag for batch mode, allows to pipe output to file or another command.
-`-n1` flag for 1 interation.
-`NF` number of fields in the record (row), `$(NF-2)` selects the thrid counting from the last.
+Le flag `-b` pour le mode batch, permet de rediriger la sortie vers un fichier ou une autre commande.
+Le flag `-n1` pour 1 itération.
+`NF` nombre de champs dans l'enregistrement (ligne), `$(NF-2)` sélectionne le troisième en comptant à partir de la fin.
 
 ### last_boot
 
@@ -438,7 +441,7 @@ cpu_load=$(top -bn1 | grep load | awk '{printf "%.2f%%\n", $(NF-2)}')
 last_boot=$(who -b | awk '$1 == "system" {print $3 " " $4}')
 ```
 
-`who -b` shows time of last system boot.
+`who -b` montre l'heure du dernier démarrage du système.
 
 ### lvm_partitions
 
@@ -446,7 +449,7 @@ last_boot=$(who -b | awk '$1 == "system" {print $3 " " $4}')
 lvm_partitions=$(lsblk | grep -c "lvm")
 ```
 
-Count `lvm` type partitions from `lsblk` command output.
+Compter les partitions de type `lvm` à partir de la sortie de la commande `lsblk`.
 
 ### lvm_is_used
 
@@ -454,7 +457,7 @@ Count `lvm` type partitions from `lsblk` command output.
 lvm_is_used=$(if [ $lvm_partitions -eq 0 ]; then echo no; else echo yes; fi)
 ```
 
-Conditional to check if previous variable is zero or not.
+Conditionnel pour vérifier si la variable précédente est zéro ou non.
 
 ### tcp_connections
 
@@ -463,11 +466,11 @@ Conditional to check if previous variable is zero or not.
 tcp_connections=$(cat /proc/net/sockstat{,6} | awk '$1 == "TCP:" {print $3}')
 ```
 
-[Read more](https://unix.stackexchange.com/questions/67150/getting-current-tcp-connection-count-on-a-system)
+[En savoir plus](https://unix.stackexchange.com/questions/67150/getting-current-tcp-connection-count-on-a-system)
 
-`/proc/net/sockstat{,6}` fies include connections established count.
+Les fichiers `/proc/net/sockstat{,6}` incluent le compte des connexions établies.
 
-Find line where first is `TCP:` and print third value which is the `inuse` (in use) amount.
+Trouver la ligne où le premier est `TCP:` et imprimer la troisième valeur qui est la quantité `inuse` (en cours d'utilisation).
 
 ### users_logged_in
 
@@ -475,10 +478,10 @@ Find line where first is `TCP:` and print third value which is the `inuse` (in u
 users_logged_in=$(w -h | wc -l)
 ```
 
-`w` - Show who is logged on and what they are doing.
-`-h` flag is without header.
-Each line has info about a logged in user.
-Count of lines is how many users logged in.
+`w` - Affiche qui est connecté et ce qu'ils font.
+Le flag `-h` est sans en-tête.
+Chaque ligne contient des informations sur un utilisateur connecté.
+Le compte des lignes indique combien d'utilisateurs sont connectés.
 
 ### ipv4_address
 
@@ -486,7 +489,7 @@ Count of lines is how many users logged in.
 ipv4_address=$(hostname -I)
 ```
 
-`-I` flag to display IP address.
+Le flag `-I` pour afficher l'adresse IP.
 
 ### mac_address
 
@@ -494,7 +497,7 @@ ipv4_address=$(hostname -I)
 mac_address=$(ip link show | awk '$1 == "link/ether" {print $2}')
 ```
 
-`ip` util with `link` object, then select line where `link/ether` is and print second column: MAC address.
+Utilitaire `ip` avec l'objet `link`, puis sélectionner la ligne où `link/ether` est et imprimer la deuxième colonne : l'adresse MAC.
 
 ### sudo_commands_count
 
@@ -502,60 +505,63 @@ mac_address=$(ip link show | awk '$1 == "link/ether" {print $2}')
 sudo_commands_count=$(journalctl _COMM=sudo | grep -c COMMAND)
 ```
 
-[Read more](https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs)
+[En savoir plus](https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs)
 
-If a file path refers to an executable script, a "_COMM=" match for the script name is added to the query.
+Si un chemin de fichier fait référence à un script exécutable, une correspondance `_COMM=` pour le nom du script est ajoutée à la requête.
 
-## What is `cron`
+## Qu'est-ce que `cron`
 
-The cron command-line utility, also known as cron job is a job scheduler on Unix-like operating systems. Users who set up and maintain software environments use cron to schedule jobs (commands or shell scripts) to run periodically at fixed times, dates, or intervals. It typically automates system maintenance or administration—though its general-purpose nature makes it useful for things like downloading files from the Internet and downloading email at regular intervals.
+L'utilitaire en ligne de commande cron, également connu sous le nom de tâche cron, est un planificateur de tâches sur les systèmes d'exploitation de type Unix. Les utilisateurs qui configurent et maintiennent des environnements logiciels utilisent cron pour planifier des tâches (commandes ou scripts shell) à exécuter périodiquement à des heures, dates ou intervalles fixes. Il automatise généralement la maintenance ou l'administration du système – bien que sa nature polyvalente le rende utile pour des choses comme le téléchargement de fichiers depuis Internet et le téléchargement d'emails à intervalles réguliers.
 
-[Read more](https://en.wikipedia.org/wiki/Cron)
+[En savoir plus](https://en.wikipedia.org/wiki/Cron)
 
-### How to set up the script to run every 10mins
+### Comment configurer le script pour qu'il s'exécute toutes les 10 minutes
 
 ```bash
 sudo crontab -e
 ```
 
-Add following line
+Ajouter la ligne suivante
 
 ```
 */10 * * * * /home/monitoring.sh
 ```
 
-### Verify correct functioning of the script
+### Vérifier le bon fonctionnement du script
 
-Check print out in console.
+Vérifier l'affichage dans la console.
 
-### Change run of script to every minute
+### Changer l'exécution du script à chaque minute
 
 ```bash
 sudo crontab -e
 ```
 
-Add following line
+Ajouter la ligne suivante
 
 ```
 */1 * * * * /home/monitoring.sh
 ```
 
-### Make the script stop running after reboot without modifying it
+### Faire en sorte que le script cesse de s'exécuter après le redémarrage sans le modifier
 
-Remove the scheduling line on the crontab
+Supprimer la ligne de planification dans le crontab
 
 ```bash
 sudo crontab -e
 ```
 
-Remove following line/s
+Supprimer la/les ligne(s) suivante(s)
 
 ```
 @reboot /home/monitoring.sh
 */1 * * * * /home/monitoring.sh
 ```
 
-- [x] Restart server
-- [x] Check script still exists in the same place
-- [x] Check that its rights have remained the same
-- [x] Check that it has not been modified
+- [x] Redémarrer le serveur
+- [x] Vérifier que le script existe toujours au même endroit
+- [x] Vérifier que ses droits sont restés les mêmes
+- [x] Vérifier qu'il n'a pas été modifié »
+
+Recommencer
+```
