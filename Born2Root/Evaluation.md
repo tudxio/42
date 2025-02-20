@@ -1,6 +1,3 @@
-Voici la traduction du fichier en français :
-
-```plaintext
 # Questions d'évaluation
 
 Créer un fichier `signature.txt` de l'image de la machine virtuelle
