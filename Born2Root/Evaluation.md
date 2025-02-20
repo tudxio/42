@@ -47,7 +47,7 @@ Les profils peuvent autoriser des capacités comme l'accès au réseau, l'accès
 - [x] Script s'exécutant toutes les 10 minutes
 - [x] Pas d'interface graphique
 - [x] Mot de passe demandé au démarrage
-- [x] Connexion avec `msousa`
+- [x] Connexion avec `lobenard`
 - [x] Le mot de passe doit suivre des règles
 
 ## Vérifier que le service UFW est démarré
@@ -68,10 +68,10 @@ sudo service ssh status
 cat /etc/os-release | grep PRETTY_NAME
 ```
 
-## Vérifier que `msousa` est membre des groupes `sudo` et `user42`
+## Vérifier que `lobenard` est membre des groupes `sudo` et `user42`
 
 ```bash
-groups msousa
+groups lobenard
 ```
 
 ## Vérifier les règles de politique de mot de passe
@@ -125,7 +125,7 @@ Les règles de complexité des mots de passe tentent d'imposer cette exigence de
 
 À quel point un mot de passe de 15 caractères est-il meilleur qu'un mot de passe de 30 caractères si les pirates savent que ce mot de passe plus long est fréquemment utilisé ? Et est-il meilleur si l'utilisateur ne peut pas s'en souvenir ? La complexité des mots de passe ne s'échelonne que jusqu'à un certain point. Au-delà d'un certain point, un mot de passe complexe peut être difficile à craquer si le nombre de combinaisons possibles est extrêmement élevé, mais il peut aussi être trop complexe pour être utile aux utilisateurs.
 
-## Vérifier que le nom d'hôte de la machine est `msousa42`
+## Vérifier que le nom d'hôte de la machine est `lobenard42`
 
 ```bash
 uname -n
@@ -145,7 +145,7 @@ sudo reboot
 ### Restaurer le nom d'hôte d'origine
 
 ```bash
-sudo vi /etc/hostname # changer en msousa42
+sudo vi /etc/hostname # changer en lobenard42
 sudo reboot
 ```
 
@@ -326,15 +326,15 @@ sudo vi /etc/ssh/ssh_config
 ### Connexion avec SSH depuis la machine hôte
 
 ```bash
-ssh msousa@127.0.0.1 -p 4242 # ou
-ssh msousa@0.0.0.0 -p 4242 # ou
-ssh msousa@localhost -p 4242
+ssh lobenard@127.0.0.1 -p 4242 # ou
+ssh lobenard@0.0.0.0 -p 4242 # ou
+ssh lobenard@localhost -p 4242
 ```
 
 ### Assurez-vous de ne pas pouvoir vous connecter en SSH avec l'utilisateur root
 
 ```bash
-msousa@msousa42:~$ login root
+lobenard@lobenard42:~$ login root
 login: Impossible de fonctionner sans root effectif
 ```
 ## Qu'est-ce que `cron`
