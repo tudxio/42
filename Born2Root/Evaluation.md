@@ -1,11 +1,3 @@
-# Questions d'évaluation
-
-Créer un fichier `signature.txt` de l'image de la machine virtuelle
-
-```bash
-sha1sum ~/VirtualBox\ VMs/Born2beRoot/Born2beRoot.vdi > signature.txt
-```
-
 ## Comment fonctionne une machine virtuelle
 
 Une machine virtuelle (VM) est un environnement logiciel qui simule un ordinateur physique.
@@ -84,13 +76,13 @@ groups msousa
 
 ## Vérifier les règles de politique de mot de passe
 
-Expiration du mot de passe : lignes 160 et 161.
+Expiration du mot de passe
 
 ```bash
 vi /etc/login.defs
 ```
 
-Politique de mot de passe : ligne 25.
+Politique de mot de passe
 
 ```bash
 vi /etc/pam.d/common-password
