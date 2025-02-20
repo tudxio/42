@@ -8,17 +8,21 @@ sha1sum ~/VirtualBox\ VMs/Born2beRoot/Born2beRoot.vdi > signature.txt
 
 ## Comment fonctionne une machine virtuelle
 
-Une machine virtuelle utilise une émulation logicielle du matériel pour créer un environnement isolé sur le matériel où un système séparé avec son propre OS peut être exécuté. Cela permet, par exemple, d'exécuter Debian sur un Mac.
+Une machine virtuelle (VM) est un environnement logiciel qui simule un ordinateur physique.
+Elle fonctionne comme un ordinateur réel, avec un système d'exploitation (OS) propre, mais
+elle est hébergée sur un autre ordinateur appelé hôte. Utiliser les ressources de la machine
+hôte (CPU, RAM).
 
 ## Choix du système d'exploitation
 
-Il est plus facile à installer et à configurer que CentOS (et je n'ai jamais utilisé CentOS). J'utilise Ubuntu et Pop OS pour un usage personnel, qui sont tous deux des variantes de Debian, et je voulais les comprendre plus en profondeur.
+Debian : Flexible, stable, adapté aux débutants
 
-## Les différences de base entre CentOS et Debian
+## Les différences de base entre Rocky et Debian
 
-CentOS et Debian sont deux variantes de systèmes d'exploitation Linux. CentOS, comme mentionné ci-dessus, est une distribution Linux. Elle est gratuite et open-source. Elle est de classe entreprise – les industries peuvent l'utiliser pour construire des serveurs ; elle est soutenue par une grande communauté et est fonctionnellement soutenue par sa source en amont, Red Hat Enterprise Linux. Debian est un système d'exploitation informatique de type Unix composé de composants open-source. Il est construit et soutenu par un groupe d'individus sous le projet Debian.
-
-Debian utilise Linux comme son noyau. Fedora, CentOS, Oracle Linux sont toutes des distributions différentes de Red Hat Linux et sont des variantes de RedHat Linux. Ubuntu, Kali, etc., sont des variantes de Debian. CentOS et Debian sont tous deux utilisés comme serveurs Internet ou serveurs web comme web, email, FTP, etc.
+Débian :
+    Simplifié, polyvalent, gestionnaire de paquets basé sur APT.
+Rocky :
+    Orienté entreprises, gestionnaire de paquets basé sur DNF/YUM.
 
 ## Le but des machines virtuelles
 
@@ -341,171 +345,6 @@ ssh msousa@localhost -p 4242
 msousa@msousa42:~$ login root
 login: Impossible de fonctionner sans root effectif
 ```
-
-## Explication du script de surveillance en montrant le code
-
-### architecture
-
-```bash
-architecture=$(uname -a)
-```
-
-uname (abréviation de unix name) est un programme informatique sous Unix et les systèmes d'exploitation de type Unix qui affiche le nom, la version et d'autres détails sur la machine actuelle et le système d'exploitation qui y est exécuté.
-
-### physical_cpu
-
-[En savoir plus](https://www.cyberciti.biz/faq/check-how-many-cpus-are-there-in-linux-system/)
-
-```bash
-physical_cpu=$(grep "physical id" /proc/cpuinfo | sort | uniq | wc -l)
-# ou
-lscpu | grep "CPU(s)"
-```
-
-Utiliser le fichier `/proc/cpuinfo` qui liste les CPU.
-
-### virtual_cpu
-
-[En savoir plus](https://webhostinggeeks.com/howto/how-to-display-the-number-of-processors-vcpu-on-linux-vps/)
-
-Si vos processeurs sont multi-cœurs, vous devez savoir combien de processeurs virtuels vous avez. Vous pouvez les compter en recherchant les lignes qui commencent par "processor".
-
-[En savoir plus](https://www.networkworld.com/article/2715970/counting-processors-on-your-linux-box.html)
-
-```bash
-virtual_cpu=$(grep -c ^processor /proc/cpuinfo)
-```
-
-Le flag `-c` est un compte sur le `grep`
-
-### memory_usage
-
-[Variables intégrées `awk`](https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/)
-
-[En savoir plus](https://linuxcommando.blogspot.com/2008/04/using-awk-to-extract-lines-in-text-file.html)
-
-```bash
-memory_usage=$(free -m | awk 'NR==2{printf "%s/%sMB (%.2f%%)\n", $3,$2,$3*100/$2 }')
-```
-
-### total_disk
-
-```bash
-total_disk=$(df -Bg | grep '^/dev/' | grep -v '/boot$' | awk '{ft += $2} END {print ft}')
-```
-
-`df` utilitaire de disque, `-Bg` affiche en Gigaoctets.
-
-`ft` est un nom de variable, `END` arrête la commande jusqu'à ce qu'elle ait parcouru toutes les lignes.
-
-Additionner le total.
-
-Le flag `-v` sur `grep` retourne les lignes non correspondantes.
-
-### used_disk
-
-```bash
-used_disk=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} END {print ut}')
-```
-
-`-Bm` affiche en Mégaoctets.
-
-Additionner l'utilisé.
-
-### percent_used_disk
-
-```bash
-percent_used_disk=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{ut += $3} {ft+= $2} END {printf("%d"), ut/ft*100}')
-```
-
-Il faut faire la même chose qu'avant mais dans la même unité de mesure pour obtenir un pourcentage significatif.
-
-### cpu_load
-
-```bash
-cpu_load=$(top -bn1 | grep load | awk '{printf "%.2f%%\n", $(NF-2)}')
-```
-
-[Utilitaire `top`](https://man7.org/linux/man-pages/man1/top.1.html)
-
-Le flag `-b` pour le mode batch, permet de rediriger la sortie vers un fichier ou une autre commande.
-Le flag `-n1` pour 1 itération.
-`NF` nombre de champs dans l'enregistrement (ligne), `$(NF-2)` sélectionne le troisième en comptant à partir de la fin.
-
-### last_boot
-
-```bash
-last_boot=$(who -b | awk '$1 == "system" {print $3 " " $4}')
-```
-
-`who -b` montre l'heure du dernier démarrage du système.
-
-### lvm_partitions
-
-```bash
-lvm_partitions=$(lsblk | grep -c "lvm")
-```
-
-Compter les partitions de type `lvm` à partir de la sortie de la commande `lsblk`.
-
-### lvm_is_used
-
-```bash
-lvm_is_used=$(if [ $lvm_partitions -eq 0 ]; then echo no; else echo yes; fi)
-```
-
-Conditionnel pour vérifier si la variable précédente est zéro ou non.
-
-### tcp_connections
-
-```bash
-# [$ sudo apt-get install net-tools]
-tcp_connections=$(cat /proc/net/sockstat{,6} | awk '$1 == "TCP:" {print $3}')
-```
-
-[En savoir plus](https://unix.stackexchange.com/questions/67150/getting-current-tcp-connection-count-on-a-system)
-
-Les fichiers `/proc/net/sockstat{,6}` incluent le compte des connexions établies.
-
-Trouver la ligne où le premier est `TCP:` et imprimer la troisième valeur qui est la quantité `inuse` (en cours d'utilisation).
-
-### users_logged_in
-
-```bash
-users_logged_in=$(w -h | wc -l)
-```
-
-`w` - Affiche qui est connecté et ce qu'ils font.
-Le flag `-h` est sans en-tête.
-Chaque ligne contient des informations sur un utilisateur connecté.
-Le compte des lignes indique combien d'utilisateurs sont connectés.
-
-### ipv4_address
-
-```bash
-ipv4_address=$(hostname -I)
-```
-
-Le flag `-I` pour afficher l'adresse IP.
-
-### mac_address
-
-```bash
-mac_address=$(ip link show | awk '$1 == "link/ether" {print $2}')
-```
-
-Utilitaire `ip` avec l'objet `link`, puis sélectionner la ligne où `link/ether` est et imprimer la deuxième colonne : l'adresse MAC.
-
-### sudo_commands_count
-
-```bash
-sudo_commands_count=$(journalctl _COMM=sudo | grep -c COMMAND)
-```
-
-[En savoir plus](https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs)
-
-Si un chemin de fichier fait référence à un script exécutable, une correspondance `_COMM=` pour le nom du script est ajoutée à la requête.
-
 ## Qu'est-ce que `cron`
 
 L'utilitaire en ligne de commande cron, également connu sous le nom de tâche cron, est un planificateur de tâches sur les systèmes d'exploitation de type Unix. Les utilisateurs qui configurent et maintiennent des environnements logiciels utilisent cron pour planifier des tâches (commandes ou scripts shell) à exécuter périodiquement à des heures, dates ou intervalles fixes. Il automatise généralement la maintenance ou l'administration du système – bien que sa nature polyvalente le rende utile pour des choses comme le téléchargement de fichiers depuis Internet et le téléchargement d'emails à intervalles réguliers.
