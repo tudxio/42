@@ -156,25 +156,6 @@ sudo reboot
 lsblk
 ```
 
-### Comparer la sortie des partitions avec l'exemple dans le sujet
-
-```bash
-NAME                    MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
-sda                       8:0    0    8G  0 disk
-|-sda1                    8:1    0  476M  0 part  /boot
-|-sda2                    8:2    0    1K  0 part
-`-sda5                    8:5    0  7.5G  0 part
-  `-sda5_crypt          254:0    0  7.5G  0 crypt
-    |-LVMGroup-root     254:1    0  1.9G  0 lvm   /
-    |-LVMGroup-swap     254:2    0  952M  0 lvm   [SWAP]
-    |-LVMGroup-home     254:3    0  952M  0 lvm   /home
-    |-LVMGroup-var      254:4    0  952M  0 lvm   /var
-    |-LVMGroup-srv      254:5    0  952M  0 lvm   /srv
-    |-LVMGroup-tmp      254:6    0  952M  0 lvm   /tmp
-    `-LVMGroup-var--log 254:7    0    1G  0 lvm   /var/log
-sr0                      11:0    1 1024M  0 rom
-```
-
 ## Brève explication du fonctionnement de LVM
 
 Il fonctionne en découpant les volumes physiques (PV) en extensions physiques (PE). Les PE sont mappées sur des extensions logiques (LE) qui sont ensuite regroupées en groupes de volumes (VG). Ces groupes sont liés entre eux en volumes logiques (LV) qui agissent comme des partitions de disque virtuelles et qui peuvent être gérées comme telles en utilisant LVM.
