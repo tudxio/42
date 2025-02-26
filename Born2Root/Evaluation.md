@@ -80,13 +80,13 @@ groups lobenard
 Expiration du mot de passe
 
 ```bash
-vi /etc/login.defs
+nano /etc/login.defs
 ```
 
 Politique de mot de passe
 
 ```bash
-vi /etc/pam.d/common-password
+nano /etc/pam.d/common-password
 ```
 
 ### Créer un nouvel utilisateur
@@ -102,7 +102,7 @@ Confirmer qu'il suit la politique de mot de passe
 ### Expliquer comment les règles de mot de passe ont été configurées
 
 ```bash
-vi /etc/pam.d/common-password
+nano /etc/pam.d/common-password
 ```
 
 ## Créer un groupe `evaluating` et ajouter l'utilisateur créé
@@ -139,14 +139,14 @@ hostname
 ```bash
 sudo adduser new_user sudo
 sudo login new_user
-sudo vi /etc/hostname # changer en new_user42
+sudo nano /etc/hostname # changer en new_user42
 sudo reboot
 ```
 
 ### Restaurer le nom d'hôte d'origine
 
 ```bash
-sudo vi /etc/hostname # changer en lobenard42
+sudo nano /etc/hostname # changer en lobenard42
 sudo reboot
 ```
 
@@ -194,7 +194,7 @@ sudo apt-get update
 ## Montrer la mise en œuvre des règles du sujet
 
 ```bash
-vi /etc/sudoers.d/sudoconfig
+nano /etc/sudoers.d/sudoconfig
 ```
 
 [Qu'est-ce que TTY](https://www.howtogeek.com/428174/what-is-a-tty-on-linux-and-how-to-use-the-tty-command/)
@@ -301,8 +301,8 @@ SSH fournit une authentification par mot de passe ou par clé publique et chiffr
 ```bash
 sudo service ssh status | grep listening
 # ou vérifier les configurations
-sudo vi /etc/ssh/sshd_config
-sudo vi /etc/ssh/ssh_config
+sudo nano /etc/ssh/sshd_config
+sudo nano /etc/ssh/ssh_config
 ```
 
 ### Connexion avec SSH depuis la machine hôte
